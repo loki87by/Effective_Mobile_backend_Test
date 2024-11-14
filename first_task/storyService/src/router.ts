@@ -93,4 +93,8 @@ router.get("/history", async (req: Request, res: Response): Promise<any> => {
   }
 });
 
+router.all("/*", async (req, res) => {
+  res.status(404).json({ error: "Такого эндпоинта не существует или используется неверный метод." });
+})
+
 export default router;

@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "15d7f3ff-5e77-4c37-8b2b-84b3cceb2f62",
+		"name": "tese_effective_mobile",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12336587"
+	},
+	"item": [
+		{
+			"name": "logger",
+			"item": [
+				{
+					"name": "create log",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"shop_id\": \"shop_2\",\r\n  \"plu\": \"123456\",\r\n  \"action\": \"create_stock\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/log",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"log"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "history",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"shop_id\": \"shop_1\",\r\n  \"plu\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/history?endDate=2024-11-14&startDate=2024-11-11",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"history"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "shop_id",
+									"value": "shop_1",
+									"disabled": true
+								},
+								{
+									"key": "action",
+									"value": "create_stock",
+									"disabled": true
+								},
+								{
+									"key": "plu",
+									"value": "123456",
+									"disabled": true
+								},
+								{
+									"key": "endDate",
+									"value": "2024-11-14"
+								},
+								{
+									"key": "startDate",
+									"value": "2024-11-11"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "other",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"shop_id\": \"shop_1\",\r\n  \"plu\": \"12345\",\r\n  \"action\": \"create_stock\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/log",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"log"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

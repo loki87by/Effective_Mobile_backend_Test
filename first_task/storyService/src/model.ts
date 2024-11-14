@@ -25,7 +25,7 @@ Actions.init(
   },
   {
     sequelize,
-    modelName: "Actions",
+    modelName: "actions",
   }
 );
 
