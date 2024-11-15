@@ -23,33 +23,6 @@ stockRouter.post("/", async (req, res) => {
     return;
   }
   try {
-    const oldStock = await Stock.findAll({
-      where: {
-        product_id: product_id,
-        shop_id: shop_id,
-      },
-    });
-    const plu = await findPluById(product_id);
-
-    if (oldStock.length > 0) {
-      await Stock.update(req.body, {
-        where: {
-          product_id: product_id,
-          shop_id: shop_id,
-        },
-      });
-      const updatedStock = await Stock.findOne({
-        where: {
-          product_id: product_id,
-          shop_id: shop_id,
-        },
-      });
-
-      sendRequest(shop_id, plu, "update_stock");
-
-      res.status(200).json(updatedStock);
-      return;
-    }
     const stock = await Stock.create(req.body);
 
     sendRequest(shop_id, plu, "create_stock");
@@ -147,7 +120,6 @@ stockRouter.put("/decrease", async (req, res) => {
     }
 
     stock.in_cell -= req.body.amount;
-    stock.in_order += req.body.amount;
 
     if (stock.in_cell > 0) {
       await stock.save();
