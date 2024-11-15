@@ -1,0 +1,140 @@
+openapi: 3.0.0
+info:
+  title: Actions Management API
+  version: 1.0.0
+  description: API для управления логами действий в магазинах.
+servers:
+  - url: http://localhost:4000
+paths:
+  /log:
+    post:
+      summary: Зарегистрировать действие
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                shop_id:
+                  type: string
+                plu:
+                  type: string
+                action:
+                  type: string
+              required:
+                - shop_id
+                - plu
+                - action
+      responses:
+          '201':
+            description: Действие успешно зарегистрировано.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Action'
+          '400':
+            description: Ошибка при регистрации действия.
+  /history:
+    get:
+      summary: Получить историю действий
+      parameters:
+        - in: query
+          name: shop_id
+          schema:
+            type: string
+          required: false
+          description: ID магазина
+        - in: query
+          name: plu
+          schema:
+            type: string
+          required: false
+          description: Код продукта (PLU)
+        - in: query
+          name: startDate
+          schema:
+            type: string
+            format: date-time
+          required: false
+          description: Дата начала фильтрации по времени (ISO 8601)
+        - in: query
+          name: endDate
+          schema:
+            type: string
+            format: date-time
+          required: false
+          description: Дата конца фильтрации по времени (ISO 8601)
+        - in: query
+          name: action
+          schema:
+            type: string
+          required: false
+          description: Тип действия
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+            minimum: 1
+          required: false
+          description: Количество записей для возврата (по умолчанию 10)
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+          required: false
+          description: Смещение для пагинации (по умолчанию 0)
+      responses:
+        '200':
+          description: История действий успешно извлечена.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Action'
+        '400':
+          description: Ошибка при извлечении истории действий.
+  /*:
+    get:
+      summary: Любой GET - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.
+    post:
+      summary: Любой POST - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.
+    put:
+      summary: Любой PUT - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.
+    patch:
+      summary: Любой PATCH - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.
+    delete:
+      summary: Любой DELETE - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.
+components:
+  schemas:
+    Action:
+      type: object
+      properties:
+        shop_id:
+          type: string
+        plu:
+          type: string
+        action:
+          type: string
+        timestamp:
+          type: string
+          format: date-time

@@ -16,7 +16,7 @@ app.use('/*', notFoundRouter);
 sequelize.sync()
     .then(() => {
         app.listen(3000, () => {
-            console.log(`Сервер логгирования запущен на порту: ${PORT}`);
+            console.log(`\u001b[36mСервер основного сервиса запущен на порту: ${PORT}\u001B[0m`);
         });
     })
-    .catch(error => console.log(`При синхроне с БД произошла ошибка: ${error}`));
+    .catch(error => console.log(`\u001b[38;5;196mПри синхроне с БД произошла ошибка: ${error}\u001b[0m`));

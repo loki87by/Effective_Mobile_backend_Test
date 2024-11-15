@@ -1,0 +1,238 @@
+openapi: 3.0.0
+info:
+  title: Stock Management API
+  version: 1.0.0
+  description: API для управления товарами и запасами в магазинах.
+servers:
+  - url: http://localhost:3000
+paths:
+  /products:
+    post:
+      summary: Создать продукт
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                plu:
+                  type: string
+                name:
+                  type: string
+              required:
+                - plu
+                - name
+      responses:
+          '201':
+            description: Продукт успешно создан.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Product'
+          '400':
+            description: Ошибка при создании продукта.
+    get:
+      summary: Получить список продуктов
+      parameters:
+        - in: query
+          name: plu
+          schema:
+            type: string
+          required: false
+          description: Код продукта
+        - in: query
+          name: name
+          schema:
+            type: string
+          required: false
+          description: Наименование продукта
+      responses:
+        '200':
+          description: Список продуктов.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /stocks:
+    post:
+      summary: Создать или обновить запас
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                in_cell:
+                  type: integer
+                in_order:
+                  type: integer
+                product_id:
+                  type: integer
+                shop_id:
+                  type: string
+              required:
+                - in_cell
+                - in_order
+                - product_id
+                - shop_id
+      responses:
+          '200':
+            description: Запас успешно обновлен.  Действие залогированно.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Stock'
+          '201':
+            description: Запас успешно создан.  Действие залогированно.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Stock'
+          '400':
+            description: Ошибка при создании или обновлении запаса.
+    get:
+        summary: Получить список запасов
+        parameters:
+          - in: query
+            name: in_cell
+            schema:
+              type: string
+            required: false
+            description: 'Количество на складе (можно указать точное число или диапазон через запятую, например: 10,100)'
+          - in: query
+            name: in_order
+            schema:
+              type: string
+            required: false
+            description: 'Заказанное количество (можно указать точное число или диапазон через запятую, например: 5,50)'
+          - in: query
+            name: plu
+            schema:
+              type: string
+            required: false
+            description: Код продукта
+          - in: query
+            name: shop_id
+            schema:
+              type: string
+            required: false
+            description: Код магазина
+        responses:
+          '200':
+            description: Список запасов.
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Stock'
+  /stocks/increase:
+    put:
+      summary: Увеличить запас
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                amount:
+                  type: integer
+              required:
+                - id
+                - amount
+      responses:
+          '200':
+            description: Запас успешно увеличен. Действие залогированно.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Stock'
+          '400':
+            description: Ошибка при увеличении запаса.
+          '404':
+            description: Товар не найден.
+  /stocks/decrease:
+    put:
+      summary: Уменьшить запас
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                amount:
+                  type: integer
+              required:
+                - id
+                - amount
+      responses:
+          '200':
+            description: Запас успешно уменьшен.  Действие залогированно.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Stock'
+          '400':
+            description: Ошибка при уменьшении запаса.
+          '404':
+            description: Запас товара не найден.
+  /*:
+    get:
+      summary: Любой GET - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.
+    post:
+      summary: Любой POST - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.
+    put:
+      summary: Любой PUT - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.
+    patch:
+      summary: Любой PATCH - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.
+    delete:
+      summary: Любой DELETE - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        plu:
+          type: string
+        name:
+          type: string
+    Stock:
+      type: object
+      properties:
+        id:
+          type: integer
+        in_cell:
+          type: integer
+        in_order:
+          type: integer
+        shop_id:
+          type: string
+        product_id:
+          type: integer

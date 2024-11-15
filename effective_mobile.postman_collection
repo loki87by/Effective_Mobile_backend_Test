@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "15d7f3ff-5e77-4c37-8b2b-84b3cceb2f62",
-		"name": "tese_effective_mobile",
+		"name": "test_effective_mobile",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12336587"
 	},
@@ -54,7 +54,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:4000/history?endDate=2024-11-14&startDate=2024-11-11",
+							"raw": "localhost:4000/history?shop_id=shop_3",
 							"host": [
 								"localhost"
 							],
@@ -75,8 +75,7 @@
 								},
 								{
 									"key": "shop_id",
-									"value": "shop_1",
-									"disabled": true
+									"value": "shop_3"
 								},
 								{
 									"key": "action",
@@ -90,11 +89,13 @@
 								},
 								{
 									"key": "endDate",
-									"value": "2024-11-14"
+									"value": "2024-11-14",
+									"disabled": true
 								},
 								{
 									"key": "startDate",
-									"value": "2024-11-11"
+									"value": "2024-11-11",
+									"disabled": true
 								}
 							]
 						}
@@ -129,6 +130,278 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "stocks",
+			"item": [
+				{
+					"name": "add stock",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"product_id\": 2,\r\n  \"in_cell\": 21,\r\n  \"in_order\": 3,\r\n  \"shop_id\": \"shop_3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/stocks",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"stocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get stocks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"product_id\": 0,\r\n  \"in_cell\": 0,\r\n  \"in_order\": 0,\r\n  \"shop_id\": \"shop_2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/stocks",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"stocks"
+							],
+							"query": [
+								{
+									"key": "shop_id",
+									"value": "shop_2",
+									"disabled": true
+								},
+								{
+									"key": "plu",
+									"value": "123456",
+									"disabled": true
+								},
+								{
+									"key": "in_cell",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "in_order",
+									"value": "1,3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "increase",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 8,\r\n  \"amount\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/stocks/increase",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"stocks",
+								"increase"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "decrease",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 8,\r\n  \"amount\": 23\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/stocks/decrease",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"stocks",
+								"decrease"
+							],
+							"query": [
+								{
+									"key": "shop_id",
+									"value": "shop_2",
+									"disabled": true
+								},
+								{
+									"key": "plu",
+									"value": "123456",
+									"disabled": true
+								},
+								{
+									"key": "in_cell",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "in_order",
+									"value": "1,3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "add product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"plu\": \"1234567\",\r\n  \"name\": \"Продукт B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/products",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/products?name=Продукт B",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Продукт B"
+								},
+								{
+									"key": "plu",
+									"value": "123456",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "other",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"shop_id\": \"shop_1\",\r\n  \"plu\": \"12345\",\r\n  \"action\": \"create_stock\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/products",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

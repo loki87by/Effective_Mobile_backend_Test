@@ -2,11 +2,20 @@ const express = require("express");
 const { Op } = require("sequelize");
 const Stock = require("../models/stock");
 const Product = require("../models/product");
+const { sendRequest } = require("../logger");
 
 const stockRouter = express.Router();
 
+const findPluById = async (id) => {
+  const current = await Product.findOne({
+    where: { id: id },
+  });
+  return current.plu;
+};
+
 stockRouter.post("/", async (req, res) => {
   const { in_cell, in_order, product_id, shop_id } = req.body;
+
   if (in_cell < 0 || in_order < 0) {
     res.status(400).json({
       error: `Значение поля ${in_cell < 0 ? "in_cell" : "in_order"} не может быть отрицательным.`,
@@ -20,6 +29,7 @@ stockRouter.post("/", async (req, res) => {
         shop_id: shop_id,
       },
     });
+    const plu = await findPluById(product_id);
 
     if (oldStock.length > 0) {
       await Stock.update(req.body, {
@@ -35,10 +45,14 @@ stockRouter.post("/", async (req, res) => {
         },
       });
 
+      sendRequest(shop_id, plu, "update_stock");
+
       res.status(200).json(updatedStock);
       return;
     }
     const stock = await Stock.create(req.body);
+
+    sendRequest(shop_id, plu, "create_stock");
     res.status(201).json(stock);
   } catch (error) {
     const message = error.message.includes("stock_fk")
@@ -103,6 +117,8 @@ stockRouter.get("/", async (req, res) => {
 stockRouter.put("/increase", async (req, res) => {
   try {
     const stock = await Stock.findByPk(req.body.id);
+    const plu = await findPluById(stock.product_id);
+
     if (!stock) {
       return res
         .status(404)
@@ -110,6 +126,8 @@ stockRouter.put("/increase", async (req, res) => {
     }
 
     stock.in_cell += +req.body.amount;
+
+    sendRequest(stock.shop_id, plu, "increase_stock");
     await stock.save();
     res.json(stock);
   } catch (error) {
@@ -120,6 +138,8 @@ stockRouter.put("/increase", async (req, res) => {
 stockRouter.put("/decrease", async (req, res) => {
   try {
     const stock = await Stock.findByPk(req.body.id);
+    const plu = await findPluById(stock.product_id);
+
     if (!stock) {
       return res
         .status(404)
@@ -128,10 +148,12 @@ stockRouter.put("/decrease", async (req, res) => {
 
     stock.in_cell -= req.body.amount;
     stock.in_order += req.body.amount;
+
     if (stock.in_cell > 0) {
       await stock.save();
       res.json(stock);
     } else {
+      sendRequest(stock.shop_id, plu, "increase_stock");
       res
         .status(400)
         .json({ error: "Запас товара на полке меньше указанного в запросе" });

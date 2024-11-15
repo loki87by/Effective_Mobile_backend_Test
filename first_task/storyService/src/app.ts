@@ -13,9 +13,9 @@ sequelize
   .sync()
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`Сервер логгирования запущен на порту: ${PORT}`);
+      console.log(`\u001b[36mСервер логгирования запущен на порту: ${PORT}\u001B[0m`);
     });
   })
   .catch((error: Error) =>
-    console.log(`При синхроне с БД произошла ошибка: ${error}`)
+    console.log(`\u001b[38;5;196mПри синхроне с БД произошла ошибка: ${error}\u001b[0m`)
   );
