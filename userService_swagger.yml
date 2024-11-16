@@ -1,0 +1,58 @@
+openapi: 3.0.0
+info:
+  title: Users API
+  version: 1.0.0
+  description: API для управления пользователями.
+servers:
+  - url: http://localhost:5000
+paths:
+  /users/troubleshooting:
+    get:
+      tags:
+        - users
+      summary: Сбросить флаг проблем у всех пользователей
+      responses:
+        '200':
+          description: Возвращает количество сброшенных флагав (count).
+  /users/migration:
+    get:
+      tags:
+        - users
+      summary: Создать миллион пользователей
+      responses:
+        '200':
+          description: "result: Users created!"
+  /users/genocide:
+    delete:
+      tags:
+        - users
+      summary: Удалить всех пользователей из базы данных
+      responses:
+        '204':
+          description: ""
+  /*:
+    get:
+      summary: Любой GET - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.
+    post:
+      summary: Любой POST - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.
+    put:
+      summary: Любой PUT - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.
+    patch:
+      summary: Любой PATCH - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.
+    delete:
+      summary: Любой DELETE - запрос к несуществующему эндпоинту
+      responses:
+          '404':
+            description: Такого эндпоинта не существует или используется неверный метод.

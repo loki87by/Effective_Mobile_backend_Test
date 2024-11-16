@@ -377,6 +377,99 @@
 			]
 		},
 		{
+			"name": "users",
+			"item": [
+				{
+					"name": "troubleshooting",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"plu\": \"1234567\",\r\n  \"name\": \"Продукт B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/users/troubleshooting",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"users",
+								"troubleshooting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "migration",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"plu\": \"1234567\",\r\n  \"name\": \"Продукт B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/users/migration",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"users",
+								"migration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "genocide",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/users/genocide",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"users",
+								"genocide"
+							],
+							"query": [
+								{
+									"key": "plu",
+									"value": "123456",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "other",
 			"request": {
 				"method": "DELETE",
