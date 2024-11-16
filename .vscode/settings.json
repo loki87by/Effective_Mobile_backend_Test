@@ -2,6 +2,7 @@
     "cSpell.words": [
         "денормализованы",
         "синхроне",
-        "nestjs"
+        "nestjs",
+        "typeorm"
     ]
 }

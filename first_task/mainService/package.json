@@ -1,1 +1,22 @@
-{"name":"main_service","version":"0.1.0","description":"main service for task 1","main":"app.js","author":"Alexey Akulich","license":"MIT","scripts":{"lint":"eslint .","start":"node app.js","dev":"nodemon app.js"},"dependencies":{"axios":"^1.7.7","cors":"^2.8.5","eslint":"^9.14.0","express":"^4.21.1","pg":"^8.13.1","prettier":"^3.3.3","sequelize":"^6.37.5"}}
+{
+  "name": "main_service",
+  "version": "0.1.0",
+  "description": "main service for task 1",
+  "main": "app.js",
+  "author": "Alexey Akulich",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "eslint": "^9.14.0",
+    "express": "^4.21.1",
+    "pg": "^8.13.1",
+    "prettier": "^3.3.3",
+    "sequelize": "^6.37.5"
+  }
+}

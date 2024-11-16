@@ -16,7 +16,9 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+      expect(appController.getNotFound()).toBe(
+        'Такого эндпоинта не существует или используется неверный метод.',
+      );
     });
   });
 });
